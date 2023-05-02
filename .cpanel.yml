@@ -1,0 +1,5 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/gorel/public_html/capacitacion.regionloreto.gob.pe/
+    - /bin/rsync -avu  /home/gorel/repositories/SIScap/* $DEPLOYPATH
