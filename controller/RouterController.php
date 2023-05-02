@@ -1,16 +1,18 @@
 <?php
 
-require_once _ROOT_CONTROLLER . 'AbstractController.php';
-
-class Router extends AbstractController{
+require_once _ROOT_CONTROLLER . 'handleSanitize.php';
+require_once _ROOT_CONTROLLER . 'ViewRenderer.php';
+class Router extends handleSanitize{
 
     public $secure;
+    private $renderView;
     protected $routes = [];
 
     public function __construct()
     {
         if(!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ){
             $this->secure = true;
+            $this->renderView = new ViewRenderer();
         }else{
             $this->secure = false;
         }
@@ -26,11 +28,11 @@ class Router extends AbstractController{
         try{
             $jsonFile = file_get_contents( _ROOT_MODEL . 'routes.json');
             if(!$jsonFile){
-                $this->renderView('ErrorView');
+                $this->renderView->render('ErrorView', '', false);
                 throw new Exception('Archivo routes.json no existe en el directorio model/');
             }
         }catch(Exception $e){
-            $this->errorLog($e);
+            $this->handlerError($e);
             die;
         }
 
@@ -44,7 +46,6 @@ class Router extends AbstractController{
     public function handleRequest() 
     {
         $requestMethod = $_SERVER['REQUEST_METHOD'];
-        //obtener el metodo de
         $url = $this->SanitizeVar($_SERVER['REQUEST_URI']);
         $requestUrl = parse_url($url, PHP_URL_PATH);
 
@@ -78,7 +79,7 @@ class Router extends AbstractController{
             }
         }
 
-        $this->renderView('ErrorView');
+        $this->renderView->render('ErrorView', '', false);
     }
 
     protected function compileRouteRegex($pattern) {
