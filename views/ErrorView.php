@@ -4,10 +4,10 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel='icon' type='image/x-icon' href='<?php echo _ROOT_ASSETS . 'images/gorel_favicon.png' ?>'>
+    <link rel='icon' type='image/x-icon' href='<?= _ROOT_ASSETS . 'img/favicon.png' ?>'>
     <title>404 ERROR</title>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="<?php echo _ROOT_ASSETS . 'css/errorStyles.css' ?>" />
+    <link rel="stylesheet" href="<?= _ROOT_ASSETS . 'css/errorStyles.css' ?>" />
 </head>
 
 <body>
@@ -150,12 +150,6 @@
             Revisa la URL que ingresaste para ver algún error e intenta de nuevo. 
             <p>Verifique que no haya errores en la URL que ingresó y vuelva a intentarlo. Alternativamente, busque 
                 lo que falte o eche un vistazo al resto de nuestro sitio.</p>
-            <div id="navigation">
-                <a class="navigation" href="<?php echo _BASE_URL . '/' ?>">Inicio</a><a class="navigation" href="">Acerca de nosotros
-                    </a>
-                <a class="navigation" href="<?php echo _BASE_URL . '/mapa-de-sitio' ?>">Mapa de sitio</a>
-                <a class="navigation" href="<?php echo _BASE_URL . '/contacto' ?>">Contacto</a>
-            </div>
         </div>
     </div>
     <script src="<?= _ROOT_ASSETS . 'js/errorJs.js' ?>"></script>

@@ -39,7 +39,7 @@ class AdministrarArchivos {
 
         $archivotemp = $archivo['tmp_name'];
         $extension = strtolower(pathinfo($archivo["name"] , PATHINFO_EXTENSION));
-        $nuevoNombre = $titulo . '-'. date("H-i-s-m-d-Y.") . $extension;
+        $nuevoNombre = $titulo . '.'. $extension;
         $pathFullFile = $rutaArchivo . $nuevoNombre;
 
         if (!move_uploaded_file($archivotemp, $pathFullFile)) {
@@ -69,6 +69,27 @@ class AdministrarArchivos {
             print_r(json_encode($respuesta)); 
             throw new Exception("No se pudo reemplazar el archivo. Controlador de actualizacion, funcion reemplazar archivo");
         }
+    }
+
+    public function redimencionarFoto ($nombreImagen) 
+    {
+        $nombreImagen = $this->ruta. $nombreImagen;
+
+        
+        $nuevoAncho = 480;
+        $nuevoAlto = 500;
+        
+        list($ancho, $alto) = getimagesize($nombreImagen);
+        $nuevaImagen = imagecreatetruecolor($nuevoAncho, $nuevoAlto);
+        
+        $imagenOriginal = imagecreatefromjpeg($nombreImagen);
+        
+        imagecopyresampled($nuevaImagen, $imagenOriginal, 0, 0, 0, 0, $nuevoAncho, $nuevoAlto, $ancho, $alto);
+        
+        imagejpeg($nuevaImagen, $nombreImagen);
+        
+        imagedestroy($imagenOriginal);
+        imagedestroy($nuevaImagen);
     }
 
     public function setRuta ($ruta) 
